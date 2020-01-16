@@ -16,13 +16,20 @@ class FishController < ApplicationController
   end
   
   def update
+    @fish = Fish.find(params[:id])
     
+    if @fish.update(fish_params)
+      json_response(@fish)
+    else
+      
+    end
   end
   
   def destroy
     @fish = Fish.find(params[:id])
-    
     @fish.destroy
+    
+    head :no_content
   end
   
   private

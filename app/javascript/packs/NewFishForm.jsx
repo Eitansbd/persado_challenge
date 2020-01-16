@@ -41,26 +41,48 @@ class NewFishForm extends React.Component {
     const {commonName , speciesName, location } = this.state;
     
     return(
-      <form onSubmit={this.handleSubmit}>
+      <form className="form-inline" onSubmit={this.handleSubmit}>
+        <div className="form-group">  
+          <label>
+          Common Name: 
+          <input
+            className="form-control"
+            type="text"
+            name="commonName"
+            value={commonName}
+            placeholder="common name"
+            onChange={this.handleChange}
+          />
+          </label>
+        </div>
+        <div className="form-group">  
+          <label>
+          Species Name: 
         <input
-          type="text"
-          name="commonName"
-          value={commonName}
-          onChange={this.handleChange}
-        />
-        <input
+          className="form-control"
           type="text"
           name="speciesName"
           value={speciesName}
+          placeholder="species name"
           onChange={this.handleChange}
           />
+          </label>
+        </div>
+        <div className="form-group">  
+          <label>
+          Location: 
         <input 
+          className="form-control"
           type="text"
           name="location"
           value={location}
+          placeholder="location"
           onChange={this.handleChange}
           />
-        <button type="submit">Add Fish</button>
+          </label>
+        </div>
+        <button className="btn btn-primary" type="submit">Add Fish</button>
+      
       </form>
     );
   }

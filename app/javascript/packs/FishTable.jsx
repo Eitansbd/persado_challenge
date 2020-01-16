@@ -37,13 +37,16 @@ class FishTable extends React.Component {
     
     
     return(
-      <form>
-        <table>
+      
+        <table className="table table-bordered">
           <thead>
             <tr>
-              <th onClick={() => this.changeSort("common_name")}>Common Name</th>
+              <th onClick={() => this.changeSort("common_name")}>
+                <button>Common Name</button>
+              </th>
               <th onClick={() => this.changeSort("species_name")}>Species Name</th>
               <th>Location</th>
+              <th>Options</th>
             </tr>
           </thead>
           <tbody>
@@ -52,20 +55,25 @@ class FishTable extends React.Component {
             ( 
               <EditFishForm key={fish.id} 
                             fish={fish}
-                            cancelEdit={this.props.cancelEdit}/>
+                            cancelEdit={this.props.cancelEdit}
+                            editFish={this.props.editFish}/>
             ) :
             (<tr key={fish.id}>
               <td>{fish.common_name}</td>
               <td>{fish.species_name}</td>
               <td>{fish.location}</td>
-              <td onClick={() => this.props.handleDelete(fish.id)}>Delete</td>
-              <td onClick={() => this.props.handleEdit(fish.id)}>edit</td>
+              <td>
+                <button className="btn btn-small btn-default" onClick={() => this.props.handleDelete(fish.id)}>Delete
+                </button>
+                <button className="btn btn-small btn-default" onClick={() => this.props.handleEdit(fish.id)}>edit
+                </button>
+              </td>
               
             </tr>)
           )}
           </tbody>
         </table>
-      </form>
+      
     );
   }
 }

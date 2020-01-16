@@ -26,6 +26,7 @@ class App extends React.Component {
       this.toggleForm = this.toggleForm.bind(this);
       this.handleEdit = this.handleEdit.bind(this);
       this.cancelEdit = this.cancelEdit.bind(this);
+      this.editFish = this.editFish.bind(this);
     }
     
     toggleForm() {
@@ -59,6 +60,24 @@ class App extends React.Component {
         .catch(error => console.log(error));
     }
     
+    editFish(fishId, common_name, species_name, location) {
+      axios
+        .patch(`/fish/${fishId}`, {fish: { common_name, species_name, location }})
+        .then(response => {
+          const updatedFish = response.data;
+          console.log(updatedFish);
+          const allFish = this.state.fish.map(fish => {
+            return(fish.id === fishId ? updatedFish : fish);
+          });
+          
+          this.setState({
+            fish: allFish,
+            editingFishId: null
+          })
+          
+        })
+    }
+    
     addFish(common_name, species_name, location) {
       axios
       .post('/fish', {fish: { common_name, species_name, location }})
@@ -87,9 +106,10 @@ class App extends React.Component {
   
   render() {
     return(
-      <div>
+      <div className="container">
         <div>
-          <button onClick={this.toggleForm}>
+          <button className="btn btn-primary" 
+                  onClick={this.toggleForm}>
             {this.state.showForm ? "Cancel" : "Add Fish"}
           </button>
           { this.state.showForm &&
@@ -100,7 +120,8 @@ class App extends React.Component {
                    handleDelete={this.deleteFish}
                    editingFishId={this.state.editingFishId}
                    cancelEdit={this.cancelEdit}
-                   handleEdit={this.handleEdit}/>
+                   handleEdit={this.handleEdit}
+                   editFish={this.editFish}/>
       </div>
     );
   }
