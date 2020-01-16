@@ -8,16 +8,22 @@ class FishTable extends React.Component {
     
     this.state = {
       sortBy: "common_name",
-      SortDirection: "desc"
-    }
+      SortDirection: "asc"
+    };
   }
   
   changeSort(sortBy) {
-    const sortDirection = this.state.sortDirection === "asc" ? "desc" : "asc";
-    this.setState({
-      sortDirection: sortDirection,
-      sortBy: sortBy
-    })
+    let sortDirection;
+    if (this.state.sortBy === sortBy) {
+      sortDirection = this.state.sortDirection === "asc" ? "desc" : "asc";
+      this.setState({
+        sortDirection: sortDirection
+      });
+    } else {
+      this.setState({
+        sortBy: sortBy
+      });
+    }
   }
   
   render() {
