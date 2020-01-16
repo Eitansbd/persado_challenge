@@ -24,6 +24,7 @@ class App extends React.Component {
       this.addFish = this.addFish.bind(this);
       this.deleteFish = this.deleteFish.bind(this);
       this.toggleForm = this.toggleForm.bind(this);
+      this.handleEdit = this.handleEdit.bind(this);
     }
     
     toggleForm() {
@@ -32,15 +33,21 @@ class App extends React.Component {
       }));
     }
     
-    deleteFish(fish_id){
+    handleEdit(fishId) {
+      this.setState(state => ({
+        editingFishId: fishId
+      }));
+    }
+    
+    deleteFish(fishId){
       axios
-        .delete(`/fish/${fish_id}`)
+        .delete(`/fish/${fishId}`)
         .then(response => {
-          alert('deleted');
-          const fish = this.state.fish.filter(fish => fish.id !== fish_id);
+          const fish = this.state.fish.filter(fish => fish.id !== fishId);
           this.setState({
             fish: fish
           });
+          alert('You deleted the fish');
         })
         .catch(error => console.log(error));
     }
@@ -52,8 +59,9 @@ class App extends React.Component {
         const newFish = response.data;
         this.setState(state => ({
           fish: [ ...state.fish, newFish ],
-          showForm: false
+          showForm: false,
         }));
+        alert('You added the fish');
       })
       .catch(error => 
         console.log(error)
@@ -63,7 +71,6 @@ class App extends React.Component {
     componentDidMount() {
       axios.get('/fish')
       .then(response => {
-          console.log(response);
           this.setState({
               fish: response.data
           });
@@ -75,8 +82,9 @@ class App extends React.Component {
     return(
       <div>
         <FishTable fish={this.state.fish} 
-                   onDelete={this.deleteFish}
-                   editingFishId={this.state.editingFishId}/>
+                   handleDelete={this.deleteFish}
+                   editingFishId={this.state.editingFishId}
+                   handleEdit={this.handleEdit}/>
         <div>
           <button onClick={this.toggleForm}>
             {this.state.showForm ? "Cancel" : "Add Fish"}
