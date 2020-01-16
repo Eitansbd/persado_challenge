@@ -23,8 +23,8 @@ class NewFishForm extends React.Component {
   
   clearForm() {
     return({
-      common_name: "",
-      species_name: "", 
+      commonName: "",
+      speciesName: "", 
       location: ""
     });
   }
@@ -32,26 +32,26 @@ class NewFishForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     
-    const { common_name, species_name, location } = this.state;
+    const { commonName, speciesName, location } = this.state;
     
-    this.props.addFish(common_name, species_name, location)
+    this.props.addFish(commonName, speciesName, location);
   }
   
   render() {
-    const {common_name , species_name, location } = this.state;
+    const {commonName , speciesName, location } = this.state;
     
     return(
       <form onSubmit={this.handleSubmit}>
         <input
           type="text"
-          name="common_name"
-          value={common_name}
+          name="commonName"
+          value={commonName}
           onChange={this.handleChange}
         />
         <input
           type="text"
-          name="species_name"
-          value={species_name}
+          name="speciesName"
+          value={speciesName}
           onChange={this.handleChange}
           />
         <input 
