@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class NewFishForm extends React.Component {
   constructor(props) {
@@ -33,16 +34,7 @@ class NewFishForm extends React.Component {
     
     const { common_name, species_name, location } = this.state;
     
-    axios
-      .post('/fish', {fish: { common_name, species_name, location }})
-      .then(response => {
-        console.log(response);
-        this.props.addFish(response.data);
-        this.setState(this.clearForm());
-      })
-      .catch(error => 
-        console.log(error)
-      );
+    this.props.addFish(common_name, species_name, location)
   }
   
   render() {
