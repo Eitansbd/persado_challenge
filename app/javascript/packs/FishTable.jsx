@@ -50,7 +50,9 @@ class FishTable extends React.Component {
           {fish.map(fish =>
             (fish.id === this.props.editingFishId) ?
             ( 
-              <EditFishForm key={fish.id} fish={fish}/>
+              <EditFishForm key={fish.id} 
+                            fish={fish}
+                            cancelEdit={this.props.cancelEdit}/>
             ) :
             (<tr key={fish.id}>
               <td>{fish.common_name}</td>

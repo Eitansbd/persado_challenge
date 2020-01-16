@@ -25,12 +25,19 @@ class App extends React.Component {
       this.deleteFish = this.deleteFish.bind(this);
       this.toggleForm = this.toggleForm.bind(this);
       this.handleEdit = this.handleEdit.bind(this);
+      this.cancelEdit = this.cancelEdit.bind(this);
     }
     
     toggleForm() {
       this.setState(state => ({
         showForm: !state.showForm
       }));
+    }
+    
+    cancelEdit() {
+      this.setState({
+        editingFishId: null
+      });
     }
     
     handleEdit(fishId) {
@@ -81,10 +88,6 @@ class App extends React.Component {
   render() {
     return(
       <div>
-        <FishTable fish={this.state.fish} 
-                   handleDelete={this.deleteFish}
-                   editingFishId={this.state.editingFishId}
-                   handleEdit={this.handleEdit}/>
         <div>
           <button onClick={this.toggleForm}>
             {this.state.showForm ? "Cancel" : "Add Fish"}
@@ -93,6 +96,11 @@ class App extends React.Component {
             <NewFishForm addFish={this.addFish} />
           }
         </div>
+        <FishTable fish={this.state.fish} 
+                   handleDelete={this.deleteFish}
+                   editingFishId={this.state.editingFishId}
+                   cancelEdit={this.cancelEdit}
+                   handleEdit={this.handleEdit}/>
       </div>
     );
   }
