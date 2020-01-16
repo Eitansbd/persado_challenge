@@ -39,6 +39,8 @@ class FishController < ApplicationController
     end
     
     def json_response(response_object, status = :ok)
-      render json: response_object, status: status
+      render json: response_object, 
+             except: [:created_at, :updated_at],
+             status: status
     end
 end
