@@ -73,9 +73,9 @@ class App extends React.Component {
           this.setState({
             fish: allFish,
             editingFishId: null
-          })
+          });
           
-        })
+        });
     }
     
     addFish(common_name, species_name, location) {
@@ -106,8 +106,8 @@ class App extends React.Component {
   
   render() {
     return(
-      <div className="container">
-        <div>
+      <div className="container mt-4">
+        <div className="mb-5">
           <button className="btn btn-primary" 
                   onClick={this.toggleForm}>
             {this.state.showForm ? "Cancel" : "Add Fish"}

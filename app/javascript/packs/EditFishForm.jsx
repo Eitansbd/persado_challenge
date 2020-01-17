@@ -43,7 +43,7 @@ class EditFishForm extends React.Component {
                  onChange={this.handleChange}/>
         </td>
         <td>
-          <input name="location"
+          <textarea className="edit-location" name="location"
                  value={location}
                  onChange={this.handleChange}/>
         </td>

@@ -41,12 +41,11 @@ class FishTable extends React.Component {
         <table className="table table-bordered">
           <thead>
             <tr>
-              <th onClick={() => this.changeSort("common_name")}>
-                <button>Common Name</button>
+              <th scope="col" onClick={() => this.changeSort("common_name")}>Common Name
               </th>
-              <th onClick={() => this.changeSort("species_name")}>Species Name</th>
-              <th>Location</th>
-              <th>Options</th>
+              <th scope="col" onClick={() => this.changeSort("species_name")}>Species Name</th>
+              <th scope="col">Location</th>
+              <th scope="col">Options</th>
             </tr>
           </thead>
           <tbody>

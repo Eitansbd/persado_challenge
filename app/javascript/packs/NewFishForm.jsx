@@ -41,48 +41,50 @@ class NewFishForm extends React.Component {
     const {commonName , speciesName, location } = this.state;
     
     return(
-      <form className="form-inline" onSubmit={this.handleSubmit}>
-        <div className="form-group">  
-          <label>
-          Common Name: 
-          <input
-            className="form-control"
-            type="text"
-            name="commonName"
-            value={commonName}
-            placeholder="common name"
-            onChange={this.handleChange}
-          />
-          </label>
+      <form className="" onSubmit={this.handleSubmit}>
+        <div className="row">
+          <div className="col-auto">
+            <div className="form-group mr-2">  
+              <label>
+                Common Name: 
+                <input
+                  className="form-control"
+                  type="text"
+                  name="commonName"
+                  value={commonName}
+                  onChange={this.handleChange}
+                />
+              </label>
+            </div>
+            <div className="form-group mr-2">  
+              <label>
+                Species Name: 
+                <input
+                  className="form-control"
+                  type="text"
+                  name="speciesName"
+                  value={speciesName}
+                  onChange={this.handleChange}
+                />
+              </label>
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="form-group mr-2">  
+              <label className="new-location">
+                Location: 
+                <textarea 
+                  className="form-control"
+                  type="text"
+                  name="location"
+                  value={location}
+                  onChange={this.handleChange}
+                />
+              </label>
+            </div>
+            <button className="btn btn-primary" type="submit">Add Fish</button>
+          </div>
         </div>
-        <div className="form-group">  
-          <label>
-          Species Name: 
-        <input
-          className="form-control"
-          type="text"
-          name="speciesName"
-          value={speciesName}
-          placeholder="species name"
-          onChange={this.handleChange}
-          />
-          </label>
-        </div>
-        <div className="form-group">  
-          <label>
-          Location: 
-        <input 
-          className="form-control"
-          type="text"
-          name="location"
-          value={location}
-          placeholder="location"
-          onChange={this.handleChange}
-          />
-          </label>
-        </div>
-        <button className="btn btn-primary" type="submit">Add Fish</button>
-      
       </form>
     );
   }
