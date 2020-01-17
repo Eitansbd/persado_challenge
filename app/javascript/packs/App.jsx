@@ -16,9 +16,10 @@ class App extends React.Component {
       super(props);
       
       this.state = {
-        fish: [],
+        allFish: [],
         editingFishId: null,
-        showForm: false
+        showForm: false,
+        pagesLoaded: 0
       };
       
       this.addFish = this.addFish.bind(this);
@@ -27,6 +28,7 @@ class App extends React.Component {
       this.handleEdit = this.handleEdit.bind(this);
       this.cancelEdit = this.cancelEdit.bind(this);
       this.editFish = this.editFish.bind(this);
+      this.fetchFish = this.fetchFish.bind(this);
     }
     
     toggleForm() {
@@ -51,9 +53,9 @@ class App extends React.Component {
       axios
         .delete(`/fish/${fishId}`)
         .then(response => {
-          const fish = this.state.fish.filter(fish => fish.id !== fishId);
+          const allFish = this.state.allFish.filter(fish => fish.id !== fishId);
           this.setState({
-            fish: fish
+            allFish: allFish
           });
           alert('You deleted the fish');
         })
@@ -65,17 +67,18 @@ class App extends React.Component {
         .patch(`/fish/${fishId}`, {fish: { common_name, species_name, location }})
         .then(response => {
           const updatedFish = response.data;
-          console.log(updatedFish);
-          const allFish = this.state.fish.map(fish => {
+          const allFish = this.state.allFish.map(fish => {
             return(fish.id === fishId ? updatedFish : fish);
           });
-          
           this.setState({
-            fish: allFish,
+            allFish: allFish,
             editingFishId: null
           });
           
-        });
+        })
+        .catch(error => 
+          console.log(error)
+        );
     }
     
     addFish(common_name, species_name, location) {
@@ -84,7 +87,7 @@ class App extends React.Component {
       .then(response => {
         const newFish = response.data;
         this.setState(state => ({
-          fish: [ ...state.fish, newFish ],
+          allFish: [ ...state.allFish, newFish ],
           showForm: false,
         }));
         alert('You added the fish');
@@ -94,35 +97,52 @@ class App extends React.Component {
       );
     }
     
-    componentDidMount() {
-      axios.get('/fish')
+    fetchFish() {
+      const nextPage = this.state.pagesLoaded + 1;
+      
+      axios.get(`/fish?page=${nextPage}`)
       .then(response => {
-          this.setState({
-              fish: response.data
-          });
+        const newFish = response.data;
+          this.setState(state => ({
+              allFish: [ ...state.allFish, ...newFish],
+              pagesLoaded: nextPage
+          }));
       })
       .catch(error => console.log(error));
+    }
+    
+    componentDidMount() {
+      this.fetchFish();
     }
   
   render() {
     return(
       <div className="container mt-4">
         <div className="mb-5">
-          <button className="btn btn-primary" 
-                  onClick={this.toggleForm}>
-            {this.state.showForm ? "Cancel" : "Add Fish"}
-          </button>
+          <div className="btn-group">
+            <button className="btn btn-primary" 
+                    onClick={this.toggleForm}>
+              {this.state.showForm ? "Cancel" : "Add Fish"}
+            </button>
+            <button className="btn btn-primary"
+                    onClick={this.fetchFish}>
+              Load More
+            </button>
+          </div>
           { this.state.showForm &&
             <NewFishForm addFish={this.addFish} />
           }
         </div>
-        <FishTable fish={this.state.fish} 
+        <div>
+          <FishTable allFish={this.state.allFish} 
                    handleDelete={this.deleteFish}
                    editingFishId={this.state.editingFishId}
                    cancelEdit={this.cancelEdit}
                    handleEdit={this.handleEdit}
                    editFish={this.editFish}/>
+        </div>
       </div>
+      
     );
   }
 }

@@ -1,8 +1,15 @@
 class FishController < ApplicationController
   def index
-    @fish = Fish.all
-    
-    json_response(@fish)
+    page_number = params[:page] || "1"
+    if page_number.match? (/\A[\d]+$/)
+      items_per_page = 10
+      offset = items_per_page * (page_number.to_i - 1)
+      @fish = Fish.limit(items_per_page).offset(offset)
+      json_response(@fish)
+    else
+      error = "invalid page param"
+      render json: { message: error }, status: :unprocessable_entity
+    end
   end
   
   def create

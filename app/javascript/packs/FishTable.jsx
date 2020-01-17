@@ -27,17 +27,15 @@ class FishTable extends React.Component {
   }
   
   render() {
-    const fish = [ ...this.props.fish ];
+    const allFish = [ ...this.props.allFish ];
     const { sortBy, sortDirection } = this.state;
-    fish.sort((a,b) => {
+    allFish.sort((a,b) => {
       const sortMultiplier = (sortDirection === "asc" ? 1 : -1);
       const comparison = ((a[sortBy] > b[sortBy]) ? 1 : -1);
       return (sortMultiplier * comparison);
     });
-    
-    
+        
     return(
-      
         <table className="table table-bordered">
           <thead>
             <tr>
@@ -49,7 +47,7 @@ class FishTable extends React.Component {
             </tr>
           </thead>
           <tbody>
-          {fish.map(fish =>
+          {allFish.map(fish =>
             (fish.id === this.props.editingFishId) ?
             ( 
               <EditFishForm key={fish.id} 
@@ -72,7 +70,6 @@ class FishTable extends React.Component {
           )}
           </tbody>
         </table>
-      
     );
   }
 }
