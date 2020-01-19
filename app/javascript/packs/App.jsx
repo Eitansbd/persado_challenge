@@ -23,7 +23,7 @@ class App extends React.Component {
     this.toggleShowForm = this.toggleShowForm.bind(this);
     this.handleBeginEdit = this.handleBeginEdit.bind(this);
     this.handleCancelEdit = this.handleCancelEdit.bind(this);
-    this.fetchFish = this.fetchFish.bind(this);
+    this.getFish = this.getFish.bind(this);
     this.handleSubmitNewFish = this.handleSubmitNewFish.bind(this);
     this.handleDeleteFish = this.handleDeleteFish.bind(this);
     this.handleSubmitEditFish = this.handleSubmitEditFish.bind(this);
@@ -110,7 +110,7 @@ class App extends React.Component {
       });
   }
   
-  fetchFish() {
+  getFish() {
     const nextPage = this.state.pagesLoaded + 1;
     
     axios.get(`/fish?page=${nextPage}`)
@@ -125,7 +125,7 @@ class App extends React.Component {
   }
   
   componentDidMount() {
-    this.fetchFish();
+    this.getFish();
   }
 
   render() {
