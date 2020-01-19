@@ -1,4 +1,5 @@
 import React from 'react';
+import InputError from './InputError'
 
 class EditFishForm extends React.Component {
   constructor(props) {
@@ -31,17 +32,14 @@ class EditFishForm extends React.Component {
   render() {
     const { commonName, speciesName, location } = this.state;
     const errors = this.props.errors;
-    console.log(errors)
+    
     return (
       <tr>
         <td>
           <input name="commonName"
                  value={commonName}
                  onChange={this.handleChange}/>
-          {errors.common_name &&
-              (<small className="form-text text-danger">
-                {errors.common_name.join(" and ")}
-               </small>)}
+          <InputError errorMessages={errors.common_name}/>
         </td>
         <td>
           <input name="speciesName"
@@ -52,7 +50,7 @@ class EditFishForm extends React.Component {
                 {errors.species_name.join(" and ")}
                </small>)}
         </td>
-        <td>
+        <td >
           <textarea className="edit-location" name="location"
                  value={location}
                  onChange={this.handleChange}/>
@@ -61,7 +59,7 @@ class EditFishForm extends React.Component {
                 {errors.location.join(" and ")}
                </small>)}
         </td>
-        <td>
+        <td className="text-nowrap">
           <button className="btn btn-default"
                   onClick={this.props.cancelEdit}>
             Cancel

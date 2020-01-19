@@ -40,11 +40,11 @@ class FishTable extends React.Component {
         <table className="table table-bordered">
           <thead>
             <tr>
-              <th scope="col" onClick={() => this.changeSort("common_name")}>Common Name
+              <th scope="col" className="text-nowrap" onClick={() => this.changeSort("common_name")}>Common Name
               </th>
-              <th scope="col" onClick={() => this.changeSort("species_name")}>Species Name</th>
-              <th scope="col">Location</th>
-              <th scope="col">Options</th>
+              <th scope="col" className="text-nowrap" onClick={() => this.changeSort("species_name")}>Species Name</th>
+              <th scope="col" className="text-nowrap">Location</th>
+              <th scope="col" className="text-nowrap">Options</th>
             </tr>
           </thead>
           <tbody>
@@ -58,13 +58,13 @@ class FishTable extends React.Component {
                             errors={this.props.errors}/>
             ) :
             (<tr key={fish.id}>
-              <td>{fish.common_name}</td>
-              <td>{fish.species_name}</td>
+              <td className="text-nowrap">{fish.common_name}</td>
+              <td className="text-nowrap">{fish.species_name}</td>
               <td>{fish.location}</td>
-              <td>
+              <td className="text-nowrap">
                 <button className="btn btn-small btn-default" onClick={() => this.props.handleDelete(fish.id)}>Delete
                 </button>
-                <button className="btn btn-small btn-default" onClick={() => this.props.handleEdit(fish.id)}>edit
+                <button className="btn btn-small btn-default" onClick={() => this.props.handleEdit(fish.id)}>Edit
                 </button>
               </td>
               
