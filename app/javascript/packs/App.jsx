@@ -60,10 +60,14 @@ class App extends React.Component {
       }));
     })
     .catch(error => {
-      const errors = error.response.data.errors;
-      this.setState({
-        newFormErrors: errors
-      });
+      if (error.response) {
+        const errors = error.response.data.errors;
+        this.setState({
+          newFormErrors: errors
+        });
+      } else {
+        console.log(error);
+      }
     });
   }
   
@@ -95,11 +99,14 @@ class App extends React.Component {
         
       })
       .catch(error => {
-        console.log(error);
-        const errors = error.response.data.errors;
-        this.setState({
-          editFormErrors: errors
-        });
+        if (error.response) {
+         const errors = error.response.data.errors;
+         this.setState({
+           editFormErrors: errors
+         });
+        } else {
+         console.log(error);
+        }
       });
   }
   
