@@ -6,7 +6,11 @@ class NewFishForm extends React.Component {
   constructor(props) {
     super(props);
     
-    this.state = this.clearForm();
+    this.state = {
+      commonName: "",
+      speciesName: "", 
+      location: ""
+    };
     
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -19,14 +23,6 @@ class NewFishForm extends React.Component {
   handleChange(e) {
     this.setState({ 
       [e.target.name]: e.target.value 
-    });
-  }
-  
-  clearForm() {
-    return({
-      commonName: "",
-      speciesName: "", 
-      location: ""
     });
   }
   
