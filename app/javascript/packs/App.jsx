@@ -19,7 +19,7 @@ class App extends React.Component {
         allFish: [],
         editingFishId: null,
         showForm: false,
-        formErrors: {},
+        newFormErrors: {},
         editFormErrors: {},
         pagesLoaded: 0,
       };
@@ -36,7 +36,7 @@ class App extends React.Component {
     toggleForm() {
       this.setState(state => ({
         showForm: !state.showForm,
-        formErrors: {}
+        newFormErrors: {}
       }));
     }
     
@@ -102,7 +102,7 @@ class App extends React.Component {
       .catch(error => {
         const errors = error.response.data.errors;
         this.setState({
-          formErrors: errors
+          newFormErrors: errors
         });
       });
     }
@@ -128,7 +128,7 @@ class App extends React.Component {
   render() {
     return(
       <div className="container mt-4">
-        <div className="mb-5">
+        <div className="mb-2">
           <div className="btn-group">
             <button className="btn btn-primary" 
                     onClick={this.toggleForm}>
@@ -141,7 +141,7 @@ class App extends React.Component {
           </div>
           { this.state.showForm &&
             <NewFishForm addFish={this.addFish}
-                         errors={this.state.formErrors} />
+                         errors={this.state.newFormErrors} />
           }
         </div>
         <div>
