@@ -16,10 +16,6 @@ class NewFishForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   
-  resetForm() {
-    
-  }
-  
   handleChange(e) {
     this.setState({ 
       [e.target.name]: e.target.value 
