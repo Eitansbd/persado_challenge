@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import ErrorMessage from './ErrorMessage';
 
 class NewFishForm extends React.Component {
   constructor(props) {
@@ -56,11 +57,7 @@ class NewFishForm extends React.Component {
                   onChange={this.handleChange}
                 />
               </label>
-              {errors.common_name &&
-              (<small className="form-text text-danger">
-                {errors.common_name.join(" and ")}
-               </small>)
-              }
+              <ErrorMessage errorMessages={errors.common_name}/>
             </div>
             <div className="form-group mr-2">  
               <label>
@@ -73,11 +70,7 @@ class NewFishForm extends React.Component {
                   onChange={this.handleChange}
                 />
               </label>
-              {errors.species_name &&
-                (<small className="form-text text-danger">
-                  {errors.species_name.join(" and ")}
-                 </small>)
-              }
+              <ErrorMessage errorMessages={errors.species_name}/>
             </div>
           </div>
           <div className="col-6">
@@ -92,11 +85,7 @@ class NewFishForm extends React.Component {
                   onChange={this.handleChange}
                 />
               </label>
-              {errors.location &&
-                (<small className="form-text text-danger">
-                  {errors.location.join(" and ")}
-                </small>)
-              }
+              <ErrorMessage errorMessages={errors.location}/>
             </div>
             <button className="btn btn-primary" type="submit">Add Fish</button>
           </div>

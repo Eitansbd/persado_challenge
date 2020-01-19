@@ -1,5 +1,5 @@
 import React from 'react';
-import InputError from './InputError'
+import ErrorMessage from './ErrorMessage';
 
 class EditFishForm extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class EditFishForm extends React.Component {
       location: location
     };
     
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
     this.handleSaveEdit = this.handleSaveEdit.bind(this);
   }
   
@@ -39,25 +39,19 @@ class EditFishForm extends React.Component {
           <input name="commonName"
                  value={commonName}
                  onChange={this.handleChange}/>
-          <InputError errorMessages={errors.common_name}/>
+          <ErrorMessage errorMessages={errors.common_name}/>
         </td>
         <td>
           <input name="speciesName"
                  value={speciesName}
                  onChange={this.handleChange}/>
-            {errors.species_name &&
-              (<small className="form-text text-danger">
-                {errors.species_name.join(" and ")}
-               </small>)}
+          <ErrorMessage errorMessages={errors.species_name} />
         </td>
         <td >
           <textarea className="edit-location" name="location"
                  value={location}
                  onChange={this.handleChange}/>
-                 {errors.location &&
-              (<small className="form-text text-danger">
-                {errors.location.join(" and ")}
-               </small>)}
+          <ErrorMessage errorMessages={errors.location}/>
         </td>
         <td className="text-nowrap">
           <button className="btn btn-default"
