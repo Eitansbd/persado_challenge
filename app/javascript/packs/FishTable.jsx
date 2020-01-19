@@ -8,7 +8,7 @@ class FishTable extends React.Component {
     
     this.state = {
       sortBy: "common_name",
-      SortDirection: "asc"
+      sortDirection: "asc"
     };
     
     this.handleChangeSort = this.handleChangeSort.bind(this);
@@ -31,12 +31,13 @@ class FishTable extends React.Component {
   render() {
     const allFish = [ ...this.props.allFish ];
     const { sortBy, sortDirection } = this.state;
-    
     allFish.sort((a,b) => {
-      const sortMultiplier = (sortDirection === "asc" ? 1 : -1);
+      const comparisonMultiplier = (sortDirection === "asc" ? 1 : -1);
       const comparison = ((a[sortBy].toLowerCase() > b[sortBy].toLowerCase()) ? 1 : -1);
-      return (sortMultiplier * comparison);
+      return (comparisonMultiplier * comparison);
     });
+    
+    console.log(allFish)
         
     return(
       <table className="table table-bordered">
