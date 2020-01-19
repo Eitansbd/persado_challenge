@@ -130,18 +130,12 @@ class App extends React.Component {
 
   render() {
     return(
-      <div className="container mt-4">
+      <div className="container mt-4 mb-4">
         <div className="mb-2">
-          <div className="btn-group">
-            <button className="btn btn-primary" 
-                    onClick={this.toggleShowForm}>
-              {this.state.showForm ? "Cancel" : "Add Fish"}
-            </button>
-            <button className="btn btn-primary"
-                    onClick={this.getFish}>
-              Load More
-            </button>
-          </div>
+          <button className="btn btn-primary" 
+                  onClick={this.toggleShowForm}>
+            {this.state.showForm ? "Cancel" : "Add Fish"}
+          </button>
           { this.state.showForm &&
             <NewFishForm onSubmitNewFish={this.handleSubmitNewFish}
                          errors={this.state.newFormErrors} />
@@ -155,6 +149,12 @@ class App extends React.Component {
                      onCancelEdit={this.handleCancelEdit}
                      onSubmitEditFish={this.handleSubmitEditFish}
                      onDeleteFish={this.handleDeleteFish}/>
+        </div>
+        <div className="text-center" >
+          <button className="btn btn-primary"
+                  onClick={this.getFish}>
+            Load More
+          </button>
         </div>
       </div>
     );
