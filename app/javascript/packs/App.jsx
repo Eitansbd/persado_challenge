@@ -19,7 +19,9 @@ class App extends React.Component {
         allFish: [],
         editingFishId: null,
         showForm: false,
-        pagesLoaded: 0
+        formErrors: {},
+        editFormErrors: {},
+        pagesLoaded: 0,
       };
       
       this.addFish = this.addFish.bind(this);
@@ -33,13 +35,15 @@ class App extends React.Component {
     
     toggleForm() {
       this.setState(state => ({
-        showForm: !state.showForm
+        showForm: !state.showForm,
+        formErrors: {}
       }));
     }
     
     cancelEdit() {
       this.setState({
-        editingFishId: null
+        editingFishId: null,
+        editFormErrors: {}
       });
     }
     
@@ -57,7 +61,6 @@ class App extends React.Component {
           this.setState({
             allFish: allFish
           });
-          alert('You deleted the fish');
         })
         .catch(error => console.log(error));
     }
@@ -72,13 +75,18 @@ class App extends React.Component {
           });
           this.setState({
             allFish: allFish,
-            editingFishId: null
+            editingFishId: null,
+            editFormErrors: {}
           });
           
         })
-        .catch(error => 
-          console.log(error)
-        );
+        .catch(error => {
+          console.log(error);
+          const errors = error.response.data.errors;
+          this.setState({
+            editFormErrors: errors
+          });
+        });
     }
     
     addFish(common_name, species_name, location) {
@@ -90,11 +98,13 @@ class App extends React.Component {
           allFish: [ ...state.allFish, newFish ],
           showForm: false,
         }));
-        alert('You added the fish');
       })
-      .catch(error => 
-        console.log(error)
-      );
+      .catch(error => {
+        const errors = error.response.data.errors;
+        this.setState({
+          formErrors: errors
+        });
+      });
     }
     
     fetchFish() {
@@ -130,16 +140,18 @@ class App extends React.Component {
             </button>
           </div>
           { this.state.showForm &&
-            <NewFishForm addFish={this.addFish} />
+            <NewFishForm addFish={this.addFish}
+                         errors={this.state.formErrors} />
           }
         </div>
         <div>
           <FishTable allFish={this.state.allFish} 
-                   handleDelete={this.deleteFish}
-                   editingFishId={this.state.editingFishId}
-                   cancelEdit={this.cancelEdit}
-                   handleEdit={this.handleEdit}
-                   editFish={this.editFish}/>
+                     handleDelete={this.deleteFish}
+                     editingFishId={this.state.editingFishId}
+                     cancelEdit={this.cancelEdit}
+                     handleEdit={this.handleEdit}
+                     editFish={this.editFish}
+                     errors={this.state.editFormErrors}/>
         </div>
       </div>
       

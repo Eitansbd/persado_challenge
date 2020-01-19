@@ -30,22 +30,36 @@ class EditFishForm extends React.Component {
   
   render() {
     const { commonName, speciesName, location } = this.state;
+    const errors = this.props.errors;
+    console.log(errors)
     return (
       <tr>
         <td>
           <input name="commonName"
                  value={commonName}
                  onChange={this.handleChange}/>
+          {errors.common_name &&
+              (<small className="form-text text-danger">
+                {errors.common_name.join(" and ")}
+               </small>)}
         </td>
         <td>
           <input name="speciesName"
                  value={speciesName}
                  onChange={this.handleChange}/>
+            {errors.species_name &&
+              (<small className="form-text text-danger">
+                {errors.species_name.join(" and ")}
+               </small>)}
         </td>
         <td>
           <textarea className="edit-location" name="location"
                  value={location}
                  onChange={this.handleChange}/>
+                 {errors.location &&
+              (<small className="form-text text-danger">
+                {errors.location.join(" and ")}
+               </small>)}
         </td>
         <td>
           <button className="btn btn-default"

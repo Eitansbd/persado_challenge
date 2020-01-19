@@ -39,6 +39,7 @@ class NewFishForm extends React.Component {
   
   render() {
     const {commonName , speciesName, location } = this.state;
+    const errors = this.props.errors;
     
     return(
       <form className="" onSubmit={this.handleSubmit}>
@@ -55,6 +56,11 @@ class NewFishForm extends React.Component {
                   onChange={this.handleChange}
                 />
               </label>
+              {errors.common_name &&
+              (<small className="form-text text-danger">
+                {errors.common_name.join(" and ")}
+               </small>)
+              }
             </div>
             <div className="form-group mr-2">  
               <label>
@@ -67,6 +73,11 @@ class NewFishForm extends React.Component {
                   onChange={this.handleChange}
                 />
               </label>
+              {errors.species_name &&
+                (<small className="form-text text-danger">
+                  {errors.species_name.join(" and ")}
+                 </small>)
+              }
             </div>
           </div>
           <div className="col-6">
@@ -81,6 +92,11 @@ class NewFishForm extends React.Component {
                   onChange={this.handleChange}
                 />
               </label>
+              {errors.location &&
+                (<small className="form-text text-danger">
+                  {errors.location.join(" and ")}
+                </small>)
+              }
             </div>
             <button className="btn btn-primary" type="submit">Add Fish</button>
           </div>

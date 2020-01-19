@@ -1,7 +1,7 @@
 class FishController < ApplicationController
   def index
     page_number = params[:page] || "1"
-    if page_number.match? (/\A[\d]+$/)
+    if page_number.match? (/\A[\d]+\z/)
       items_per_page = 10
       offset = items_per_page * (page_number.to_i - 1)
       @fish = Fish.limit(items_per_page).offset(offset)
@@ -18,7 +18,11 @@ class FishController < ApplicationController
     if @fish.save
       json_response(@fish)
     else
-      
+      response_obj = {
+        message: "Validation failed",
+        errors: @fish.errors
+      }
+      json_response(response_obj, 400)
     end
   end
   
@@ -28,7 +32,11 @@ class FishController < ApplicationController
     if @fish.update(fish_params)
       json_response(@fish)
     else
-      
+      response_obj = {
+        message: "Validation failed",
+        errors: @fish.errors
+      }
+      json_response(response_obj, 400)
     end
   end
   

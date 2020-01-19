@@ -29,9 +29,10 @@ class FishTable extends React.Component {
   render() {
     const allFish = [ ...this.props.allFish ];
     const { sortBy, sortDirection } = this.state;
+    
     allFish.sort((a,b) => {
       const sortMultiplier = (sortDirection === "asc" ? 1 : -1);
-      const comparison = ((a[sortBy] > b[sortBy]) ? 1 : -1);
+      const comparison = ((a[sortBy].toLowerCase() > b[sortBy].toLowerCase()) ? 1 : -1);
       return (sortMultiplier * comparison);
     });
         
@@ -53,7 +54,8 @@ class FishTable extends React.Component {
               <EditFishForm key={fish.id} 
                             fish={fish}
                             cancelEdit={this.props.cancelEdit}
-                            editFish={this.props.editFish}/>
+                            editFish={this.props.editFish}
+                            errors={this.props.errors}/>
             ) :
             (<tr key={fish.id}>
               <td>{fish.common_name}</td>
