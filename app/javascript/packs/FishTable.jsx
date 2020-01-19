@@ -39,41 +39,41 @@ class FishTable extends React.Component {
     });
         
     return(
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col" className="text-nowrap" onClick={() => this.handleChangeSort("common_name")}>Common Name
-              </th>
-              <th scope="col" className="text-nowrap" onClick={() => this.handleChangeSort("species_name")}>Species Name</th>
-              <th scope="col" className="text-nowrap">Location</th>
-              <th scope="col" className="text-nowrap">Options</th>
-            </tr>
-          </thead>
-          <tbody>
-          {allFish.map(fish =>
-            (fish.id === this.props.editingFishId) ?
-            ( 
-              <EditFishForm key={fish.id} 
-                            fish={fish}
-                            errors={this.props.errors}
-                            onCancelEdit={this.props.onCancelEdit}
-                            onSubmitEditFish={this.props.onSubmitEditFish} />
-            ) :
-            (<tr key={fish.id}>
-              <td className="text-nowrap">{fish.common_name}</td>
-              <td className="text-nowrap">{fish.species_name}</td>
-              <td>{fish.location}</td>
-              <td className="text-nowrap">
-                <button className="btn btn-small btn-default" onClick={() => this.props.onDeleteFish(fish.id)}>Delete
-                </button>
-                <button className="btn btn-small btn-default" onClick={() => this.props.onBeginEdit(fish.id)}>Edit
-                </button>
-              </td>
-              
-            </tr>)
-          )}
-          </tbody>
-        </table>
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col" className="text-nowrap" onClick={() => this.handleChangeSort("common_name")}>Common Name
+            </th>
+            <th scope="col" className="text-nowrap" onClick={() => this.handleChangeSort("species_name")}>Species Name</th>
+            <th scope="col" className="text-nowrap">Location</th>
+            <th scope="col" className="text-nowrap">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+        {allFish.map(fish =>
+          (fish.id === this.props.editingFishId) ?
+          ( 
+            <EditFishForm key={fish.id} 
+                          fish={fish}
+                          errors={this.props.errors}
+                          onCancelEdit={this.props.onCancelEdit}
+                          onSubmitEditFish={this.props.onSubmitEditFish} />
+          ) :
+          (<tr key={fish.id}>
+            <td className="text-nowrap">{fish.common_name}</td>
+            <td className="text-nowrap">{fish.species_name}</td>
+            <td>{fish.location}</td>
+            <td className="text-nowrap">
+              <button className="btn btn-small btn-default" onClick={() => this.props.onDeleteFish(fish.id)}>Delete
+              </button>
+              <button className="btn btn-small btn-default" onClick={() => this.props.onBeginEdit(fish.id)}>Edit
+              </button>
+            </td>
+            
+          </tr>)
+        )}
+        </tbody>
+      </table>
     );
   }
 }
