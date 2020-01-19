@@ -138,7 +138,7 @@ class App extends React.Component {
               {this.state.showForm ? "Cancel" : "Add Fish"}
             </button>
             <button className="btn btn-primary"
-                    onClick={this.fetchFish}>
+                    onClick={this.getFish}>
               Load More
             </button>
           </div>
