@@ -36,8 +36,6 @@ class FishTable extends React.Component {
       const comparison = ((a[sortBy].toLowerCase() > b[sortBy].toLowerCase()) ? 1 : -1);
       return (comparisonMultiplier * comparison);
     });
-    
-    console.log(allFish)
         
     return(
       <table className="table table-bordered">

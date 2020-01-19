@@ -63,7 +63,7 @@ class EditFishForm extends React.Component {
           </button>
         </td>
       </tr>
-    )
+    );
   }
 }
 
