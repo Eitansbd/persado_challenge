@@ -31,6 +31,10 @@ Server-side validation ensures that:
  - is unique (no two fish can have the same species name but it's not uncommon for fish to share a common name) without considering case sensitivity
 
 ## Testing
-1. Basic model test for fish
+1. Basic model tests for fish
 
+# Bugs/Future/Discussion
+1. When a user clicks "Load More" the next 10 fields are loaded from the databse based on common_name ordering. But, if the user already changed the default order by changing either the sorting field to Species Name or the direction to descending, the data wont be added to the end of the table and will be placed in the correct location based on the current ordering, which probably isn't what the user would expect. 
+2. There isn't much validation for common name or location. The user can basically add any string to the database without an error. 
+3. 
 
