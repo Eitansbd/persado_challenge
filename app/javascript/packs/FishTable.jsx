@@ -23,7 +23,8 @@ class FishTable extends React.Component {
       });
     } else {
       this.setState({
-        sortBy: sortBy
+        sortBy: sortBy,
+        sortDirection: "asc"
       });
     }
   }
