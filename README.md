@@ -36,5 +36,9 @@ Server-side validation ensures that:
 # Bugs/Future/Discussion
 1. When a user clicks "Load More" the next 10 fields are loaded from the databse based on common_name ordering. But, if the user already changed the default order by changing either the sorting field to Species Name or the direction to descending, the data wont be added to the end of the table and will be placed in the correct location based on the current ordering, which probably isn't what the user would expect. 
 2. There isn't much validation for common name or location. The user can basically add any string to the database without an error. 
-3. 
+3. Validation is only happening server side - adding client side validation wouldn't be too complicated to implement and the same function can be used to both the new and edit forms. The validation would happen in the form component and the API function would only be called if there are no errors. We would also have to move the form errors from props to state so that they can be changed by the form component if there are any errors. 
+4. More tests. If we think of the three major parts of the application they are the Fish model, the Fish controller, and the UI. All we're testing so far is the Fish model. 
+5. Naming: The plural of Fish is Fish. That makes the code unclear. It may be smarted to go with the incorrect "Fishes".
+6. There's a bug that's requiring me to import react into the file with the ErrorMessage even though it's a function component and shouldn't need it. I think it has to do with webpack but I'm not positive. 
+7. Rails uses CSRF tokens to validate client requests. I'm working around that in the app by finding the csrf token and adding it to the axios request (yes, I got that code from StackOverflow). I'm sure there are other, smarter ways of working around this but for this project I went with this simple solution.
 
