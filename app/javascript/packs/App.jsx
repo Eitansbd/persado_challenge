@@ -151,10 +151,10 @@ class App extends React.Component {
           <FishTable allFish={this.state.allFish}
                      editingFishId={this.state.editingFishId}
                      errors={this.state.editFormErrors}
-                     onDeleteFish={this.handleDeleteFish}
                      onBeginEdit={this.handleBeginEdit}
                      onCancelEdit={this.handleCancelEdit}
-                     onSubmitEditFish={this.handleSubmitEditFish}/>
+                     onSubmitEditFish={this.handleSubmitEditFish}
+                     onDeleteFish={this.handleDeleteFish}/>
         </div>
       </div>
     );
