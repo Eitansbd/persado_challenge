@@ -1,7 +1,3 @@
-// Run this example by adding <%= javascript_pack_tag 'hello_react' %> to the head of your layout file,
-// like app/views/layouts/application.html.erb. All it does is render <div>Hello React</div> at the bottom
-// of the page.
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
@@ -17,43 +13,61 @@ class App extends React.Component {
       
       this.state = {
         allFish: [],
-        editingFishId: null,
+        pagesLoaded: 0,
         showForm: false,
         newFormErrors: {},
-        editFormErrors: {},
-        pagesLoaded: 0,
+        editingFishId: null,
+        editFormErrors: {}
       };
       
-      this.addFish = this.addFish.bind(this);
-      this.deleteFish = this.deleteFish.bind(this);
-      this.toggleForm = this.toggleForm.bind(this);
-      this.handleEdit = this.handleEdit.bind(this);
-      this.cancelEdit = this.cancelEdit.bind(this);
-      this.editFish = this.editFish.bind(this);
+      this.toggleShowForm = this.toggleShowForm.bind(this);
+      this.handleBeginEdit = this.handleBeginEdit.bind(this);
+      this.handleCancelEdit = this.handleCancelEdit.bind(this);
       this.fetchFish = this.fetchFish.bind(this);
+      this.handleSubmitNewFish = this.handleSubmitNewFish.bind(this);
+      this.handleDeleteFish = this.handleDeleteFish.bind(this);
+      this.handleSubmitEditFish = this.handleSubmitEditFish.bind(this);
     }
     
-    toggleForm() {
+    toggleShowForm() {
       this.setState(state => ({
         showForm: !state.showForm,
         newFormErrors: {}
       }));
     }
     
-    cancelEdit() {
+    handleBeginEdit(fishId) {
+      this.setState(state => ({
+        editingFishId: fishId
+      }));
+    }
+    
+    handleCancelEdit() {
       this.setState({
         editingFishId: null,
         editFormErrors: {}
       });
     }
     
-    handleEdit(fishId) {
-      this.setState(state => ({
-        editingFishId: fishId
-      }));
+    handleSubmitNewFish(common_name, species_name, location) {
+      axios
+      .post('/fish', {fish: { common_name, species_name, location }})
+      .then(response => {
+        const newFish = response.data;
+        this.setState(state => ({
+          allFish: [ ...state.allFish, newFish ],
+          showForm: false,
+        }));
+      })
+      .catch(error => {
+        const errors = error.response.data.errors;
+        this.setState({
+          newFormErrors: errors
+        });
+      });
     }
     
-    deleteFish(fishId){
+    handleDeleteFish(fishId){
       axios
         .delete(`/fish/${fishId}`)
         .then(response => {
@@ -65,7 +79,7 @@ class App extends React.Component {
         .catch(error => console.log(error));
     }
     
-    editFish(fishId, common_name, species_name, location) {
+    handleSubmitEditFish(fishId, common_name, species_name, location) {
       axios
         .patch(`/fish/${fishId}`, {fish: { common_name, species_name, location }})
         .then(response => {
@@ -89,24 +103,6 @@ class App extends React.Component {
         });
     }
     
-    addFish(common_name, species_name, location) {
-      axios
-      .post('/fish', {fish: { common_name, species_name, location }})
-      .then(response => {
-        const newFish = response.data;
-        this.setState(state => ({
-          allFish: [ ...state.allFish, newFish ],
-          showForm: false,
-        }));
-      })
-      .catch(error => {
-        const errors = error.response.data.errors;
-        this.setState({
-          newFormErrors: errors
-        });
-      });
-    }
-    
     fetchFish() {
       const nextPage = this.state.pagesLoaded + 1;
       
@@ -125,38 +121,37 @@ class App extends React.Component {
       this.fetchFish();
     }
   
-  render() {
-    return(
-      <div className="container mt-4">
-        <div className="mb-2">
-          <div className="btn-group">
-            <button className="btn btn-primary" 
-                    onClick={this.toggleForm}>
-              {this.state.showForm ? "Cancel" : "Add Fish"}
-            </button>
-            <button className="btn btn-primary"
-                    onClick={this.fetchFish}>
-              Load More
-            </button>
+    render() {
+      return(
+        <div className="container mt-4">
+          <div className="mb-2">
+            <div className="btn-group">
+              <button className="btn btn-primary" 
+                      onClick={this.toggleShowForm}>
+                {this.state.showForm ? "Cancel" : "Add Fish"}
+              </button>
+              <button className="btn btn-primary"
+                      onClick={this.fetchFish}>
+                Load More
+              </button>
+            </div>
+            { this.state.showForm &&
+              <NewFishForm onSubmitNewFish={this.handleSubmitNewFish}
+                           errors={this.state.newFormErrors} />
+            }
           </div>
-          { this.state.showForm &&
-            <NewFishForm addFish={this.addFish}
-                         errors={this.state.newFormErrors} />
-          }
+          <div>
+            <FishTable allFish={this.state.allFish}
+                       editingFishId={this.state.editingFishId}
+                       errors={this.state.editFormErrors}
+                       onDeleteFish={this.handleDeleteFish}
+                       onBeginEdit={this.handleBeginEdit}
+                       onCancelEdit={this.handleCancelEdit}
+                       onSubmitEditFish={this.handleSubmitEditFish}/>
+          </div>
         </div>
-        <div>
-          <FishTable allFish={this.state.allFish} 
-                     handleDelete={this.deleteFish}
-                     editingFishId={this.state.editingFishId}
-                     cancelEdit={this.cancelEdit}
-                     handleEdit={this.handleEdit}
-                     editFish={this.editFish}
-                     errors={this.state.editFormErrors}/>
-        </div>
-      </div>
-      
-    );
-  }
+      );
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {

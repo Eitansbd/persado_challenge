@@ -35,7 +35,7 @@ class NewFishForm extends React.Component {
     
     const { commonName, speciesName, location } = this.state;
     
-    this.props.addFish(commonName, speciesName, location);
+    this.props.onSubmitNewFish(commonName, speciesName, location);
   }
   
   render() {

@@ -10,9 +10,11 @@ class FishTable extends React.Component {
       sortBy: "common_name",
       SortDirection: "asc"
     };
+    
+    this.handleChangeSort = this.handleChangeSort.bind(this);
   }
   
-  changeSort(sortBy) {
+  handleChangeSort(sortBy) {
     let sortDirection;
     if (this.state.sortBy === sortBy) {
       sortDirection = this.state.sortDirection === "asc" ? "desc" : "asc";
@@ -40,9 +42,9 @@ class FishTable extends React.Component {
         <table className="table table-bordered">
           <thead>
             <tr>
-              <th scope="col" className="text-nowrap" onClick={() => this.changeSort("common_name")}>Common Name
+              <th scope="col" className="text-nowrap" onClick={() => this.handleChangeSort("common_name")}>Common Name
               </th>
-              <th scope="col" className="text-nowrap" onClick={() => this.changeSort("species_name")}>Species Name</th>
+              <th scope="col" className="text-nowrap" onClick={() => this.handleChangeSort("species_name")}>Species Name</th>
               <th scope="col" className="text-nowrap">Location</th>
               <th scope="col" className="text-nowrap">Options</th>
             </tr>
@@ -53,18 +55,18 @@ class FishTable extends React.Component {
             ( 
               <EditFishForm key={fish.id} 
                             fish={fish}
-                            cancelEdit={this.props.cancelEdit}
-                            editFish={this.props.editFish}
-                            errors={this.props.errors}/>
+                            errors={this.props.errors}
+                            onCancelEdit={this.props.onCancelEdit}
+                            onSubmitEditFish={this.props.onSubmitEditFish} />
             ) :
             (<tr key={fish.id}>
               <td className="text-nowrap">{fish.common_name}</td>
               <td className="text-nowrap">{fish.species_name}</td>
               <td>{fish.location}</td>
               <td className="text-nowrap">
-                <button className="btn btn-small btn-default" onClick={() => this.props.handleDelete(fish.id)}>Delete
+                <button className="btn btn-small btn-default" onClick={() => this.props.onDeleteFish(fish.id)}>Delete
                 </button>
-                <button className="btn btn-small btn-default" onClick={() => this.props.handleEdit(fish.id)}>Edit
+                <button className="btn btn-small btn-default" onClick={() => this.props.onBeginEdit(fish.id)}>Edit
                 </button>
               </td>
               

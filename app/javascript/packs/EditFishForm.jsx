@@ -26,7 +26,7 @@ class EditFishForm extends React.Component {
     const { commonName, speciesName, location } = this.state;
     const fishId = this.props.fish.id;
     
-    this.props.editFish(fishId, commonName, speciesName, location);
+    this.props.onSubmitEditFish(fishId, commonName, speciesName, location);
   }
   
   render() {
@@ -55,7 +55,7 @@ class EditFishForm extends React.Component {
         </td>
         <td className="text-nowrap">
           <button className="btn btn-default"
-                  onClick={this.props.cancelEdit}>
+                  onClick={this.props.onCancelEdit}>
             Cancel
           </button>
           <button className="btn btn-default"
