@@ -18,11 +18,7 @@ class Api::FishController < ApplicationController
     if @fish.save
       json_response(@fish)
     else
-      response_obj = {
-        message: "Validation failed",
-        errors: @fish.errors
-      }
-      json_response(response_obj, 400)
+      failed_validation_response
     end
   end
   
@@ -32,11 +28,7 @@ class Api::FishController < ApplicationController
     if @fish.update(fish_params)
       json_response(@fish)
     else
-      response_obj = {
-        message: "Validation failed",
-        errors: @fish.errors
-      }
-      json_response(response_obj, 400)
+      failed_validation_response
     end
   end
   
@@ -57,5 +49,13 @@ class Api::FishController < ApplicationController
       render json: response_object, 
              except: [:created_at, :updated_at],
              status: status
+    end
+    
+    def failed_validation_response
+      response_obj = {
+        message: "Validation failed",
+        errors: @fish.errors
+      }
+      json_response(response_obj, 400)
     end
 end
