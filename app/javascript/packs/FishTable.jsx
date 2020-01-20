@@ -9,8 +9,6 @@ class FishTable extends React.Component {
       sortBy: "common_name",
       sortDirection: "asc"
     };
-    
-    this.handleChangeSort = this.handleChangeSort.bind(this);
   }
   
   handleChangeSort(sortBy) {
