@@ -1,7 +1,6 @@
 import React from 'react';
 import EditFishForm from './EditFishForm';
 
-
 class FishTable extends React.Component {
   constructor(props) {
     super(props);
@@ -29,6 +28,8 @@ class FishTable extends React.Component {
     }
   }
   
+  renderTableHeader
+  
   render() {
     const allFish = [ ...this.props.allFish ];
     const { sortBy, sortDirection } = this.state;
@@ -42,9 +43,14 @@ class FishTable extends React.Component {
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th scope="col" className="text-nowrap" onClick={() => this.handleChangeSort("common_name")}>Common Name
+            <th scope="col" className="text-nowrap" onClick={() => this.handleChangeSort("common_name")}>
+              Common Name {this.state.sortBy === "common_name" && 
+                (<i className={"fa fa-sort-" + (this.state.sortDirection === "asc" ? "up" : "down")} />)}
             </th>
-            <th scope="col" className="text-nowrap" onClick={() => this.handleChangeSort("species_name")}>Species Name</th>
+            <th scope="col" className="text-nowrap" onClick={() => this.handleChangeSort("species_name")}>
+              Species Name {this.state.sortBy === "species_name" && 
+                (<i className={"fa fa-sort-" + (this.state.sortDirection === "asc" ? "up" : "down")} />)}
+            </th>
             <th scope="col" className="text-nowrap">Location</th>
             <th scope="col" className="text-nowrap">Options</th>
           </tr>
