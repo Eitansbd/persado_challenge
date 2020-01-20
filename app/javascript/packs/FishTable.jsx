@@ -34,6 +34,7 @@ class FishTable extends React.Component {
   render() {
     const allFish = [ ...this.props.allFish ];
     const { sortBy, sortDirection } = this.state;
+    console.log(sortBy);
     allFish.sort((a,b) => {
       const comparisonMultiplier = (sortDirection === "asc" ? 1 : -1);
       const comparison = ((a[sortBy].toLowerCase() > b[sortBy].toLowerCase()) ? 1 : -1);
