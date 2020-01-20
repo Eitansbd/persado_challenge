@@ -51,7 +51,7 @@ class App extends React.Component {
   
   handleSubmitNewFish(common_name, species_name, location) {
     axios
-    .post('/fish', {fish: { common_name, species_name, location }})
+    .post('/api/fish', {fish: { common_name, species_name, location }})
     .then(response => {
       const newFish = response.data;
       this.setState(state => ({
@@ -73,7 +73,7 @@ class App extends React.Component {
   
   handleDeleteFish(fishId){
     axios
-      .delete(`/fish/${fishId}`)
+      .delete(`/api/fish/${fishId}`)
       .then(response => {
         const allFish = this.state.allFish.filter(fish => fish.id !== fishId);
         this.setState({
@@ -85,7 +85,7 @@ class App extends React.Component {
   
   handleSubmitEditFish(fishId, common_name, species_name, location) {
     axios
-      .patch(`/fish/${fishId}`, {fish: { common_name, species_name, location }})
+      .patch(`/api/fish/${fishId}`, {fish: { common_name, species_name, location }})
       .then(response => {
         const updatedFish = response.data;
         const allFish = this.state.allFish.map(fish => {
@@ -113,7 +113,7 @@ class App extends React.Component {
   getFish() {
     const nextPage = this.state.pagesLoaded + 1;
     
-    axios.get(`/fish?page=${nextPage}`)
+    axios.get(`/api/fish?page=${nextPage}`)
     .then(response => {
       const newFish = response.data;
         this.setState(state => ({

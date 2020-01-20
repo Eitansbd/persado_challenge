@@ -1,4 +1,4 @@
-class FishController < ApplicationController
+class Api::FishController < ApplicationController
   def index
     page_number = params[:page] || "1"
     if page_number.match? (/\A[\d]+\z/)
