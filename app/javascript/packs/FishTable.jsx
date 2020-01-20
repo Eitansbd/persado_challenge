@@ -9,10 +9,13 @@ class FishTable extends React.Component {
       sortBy: "common_name",
       sortDirection: "asc"
     };
+    
+    this.handleChangeSort = this.handleChangeSort.bind(this);
   }
   
-  handleChangeSort(sortBy) {
+  handleChangeSort(e) {
     let sortDirection;
+    const sortBy = e.target.dataset.sortby;
     if (this.state.sortBy === sortBy) {
       sortDirection = this.state.sortDirection === "asc" ? "desc" : "asc";
       this.setState({
@@ -41,11 +44,15 @@ class FishTable extends React.Component {
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th scope="col" className="text-nowrap" onClick={() => this.handleChangeSort("common_name")}>
+            <th scope="col" className="text-nowrap" 
+                            onClick={this.handleChangeSort}
+                            data-sortby="common_name">
               Common Name {this.state.sortBy === "common_name" && 
                 (<i className={"fa fa-sort-" + (this.state.sortDirection === "asc" ? "up" : "down")} />)}
             </th>
-            <th scope="col" className="text-nowrap" onClick={() => this.handleChangeSort("species_name")}>
+            <th scope="col" className="text-nowrap" 
+                            onClick={this.handleChangeSort}
+                            data-sortby="species_name">
               Species Name {this.state.sortBy === "species_name" && 
                 (<i className={"fa fa-sort-" + (this.state.sortDirection === "asc" ? "up" : "down")} />)}
             </th>
