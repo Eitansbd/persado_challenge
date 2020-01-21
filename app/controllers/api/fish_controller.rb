@@ -1,7 +1,7 @@
 class Api::FishController < ApplicationController
   def index
     page_number = params[:page] || "1"
-    if page_number.match? (/\A[\d]+\z/)
+    if page_number.match? (/\A[1-9][\d]*\z/)
       items_per_page = 10
       offset = items_per_page * (page_number.to_i - 1)
       @fish = Fish.order(:common_name).limit(items_per_page).offset(offset)
